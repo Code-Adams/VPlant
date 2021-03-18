@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">VPlant</string>
+    <string name="Phone">Phone</string>
+    <string name="OTP">OTP</string>
+    <string name="OTP_Sent">OTP Sent</string>
+    <string name="Resend_OTP">Resend OTP</string>
+    <string name="Counter_Hint">Counter Hint</string>
+    <string name="Get_OTP">Get OTP</string>
+    <string name="Verify_Number">Verify Number</string>
 </resources>

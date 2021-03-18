@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "967459717375",
+    "project_id": "vplant-18",
+    "storage_bucket": "vplant-18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967459717375:android:5db255ab853ce5c6af0cca",
+        "android_client_info": {
+          "package_name": "com.sakshmbhat.VPlant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967459717375-v7rdb6rhd9poq0m15s4ob46vjgi2mshv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sakshmbhat.VPlant",
+            "certificate_hash": "9bc4f60116cfd1499ffc787d5ce8450ce69743d8"
+          }
+        },
+        {
+          "client_id": "967459717375-bojdqkqppnpv0aoidt7jiiq9voaha3ve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5oziaChuAGYvNxgXSCcb9yushszPIkgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967459717375-bojdqkqppnpv0aoidt7jiiq9voaha3ve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.sakshmbhat.myapplication;
+package com.sakshmbhat.VPlant;
 
 import androidx.appcompat.app.AppCompatActivity;
 

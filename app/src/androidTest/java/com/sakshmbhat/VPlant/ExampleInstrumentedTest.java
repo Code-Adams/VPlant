@@ -1,4 +1,4 @@
-package com.sakshmbhat.myapplication;
+package com.sakshmbhat.VPlant;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.sakshmbhat.myapplication", appContext.getPackageName());
+        assertEquals("com.sakshmbhat.VPlant", appContext.getPackageName());
     }
 }
