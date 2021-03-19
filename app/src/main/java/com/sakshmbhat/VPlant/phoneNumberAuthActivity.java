@@ -12,9 +12,12 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 import com.sakshmbhat.VPlant.phoneNumberAuthActivity;
 import com.sakshmbhat.VPlant.R;
@@ -38,6 +46,8 @@ import java.util.concurrent.TimeUnit;
 public class phoneNumberAuthActivity extends AppCompatActivity {
 
     private EditText phoneNumber,otp;
+    private Spinner userTypeSpinner;
+    private String userType="";
     private boolean mVerificationInProgress = false,getOtpClicked=false;
     private CountryCodePicker ccp;
     private Button verifyBtn;
@@ -47,6 +57,8 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
     private String TAG,mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String verificationCodeBySystem;
+    private DatabaseReference rootRef;
+
 
     Dialog dialog;
     FirebaseUser mCurrentUser;
@@ -57,7 +69,14 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_number_auth);
 
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            Intent i = new Intent(phoneNumberAuthActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
         initialiseElements();
+        setSpinner();
 
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,12 +87,24 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                loginOnClick();
-
+              if(userType.isEmpty()|| userType.equals("Select User Mode")){
+                  Toast.makeText(phoneNumberAuthActivity.this, "Please identify user type!!", Toast.LENGTH_SHORT).show();
+                  userTypeSpinner.requestFocus();
+              }else {
+                  loginOnClick();
+              }
             }
         });
         verifyBtn.setTextColor(Color.parseColor("#C0BEBE"));
+        userTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                userType = userTypeSpinner.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
     }
 
@@ -82,6 +113,7 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         mCurrentUser = mAuth.getCurrentUser();
 
         otp=findViewById(R.id.otpField);
+        otp.setVisibility(View.GONE);
         phoneNumber = findViewById(R.id.phoneNumberField);
         progressBar = findViewById(R.id.progressBar);
         verifyBtn = findViewById(R.id.verifyBtn);
@@ -93,6 +125,8 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         ccp=(CountryCodePicker)findViewById(R.id.countrycodepicker);
         ccp.registerCarrierNumberEditText(phoneNumber);
 
+        rootRef= FirebaseDatabase.getInstance().getReference();
+        userTypeSpinner=findViewById(R.id.userTypeSpinner);
 
 
     }
@@ -155,9 +189,12 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
                             if (mCurrentUser !=null){
 
                                 //dialog.dismiss();
-                                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                                Intent i = new Intent(getApplicationContext(),registerActivity.class);
+                                i.putExtra("phoneNumber",ccp.getFullNumberWithPlus().trim());
+                                i.putExtra("userType",userType);
                                 startActivity(i);
                                 finish();
+
 
                             }else {
 
@@ -227,6 +264,7 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
             dialog.dismiss();
             verifyBtn.setTextColor(Color.parseColor("#000000"));
             otpSent.setText("OTP has been sent yo your mobile number");
+            otp.setVisibility(View.VISIBLE);
             otpSent.setVisibility(View.VISIBLE);
             super.onCodeSent(s, forceResendingToken);
             mVerificationId = s;
@@ -278,5 +316,12 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         }
     };
 
+    private void setSpinner() {
+
+        String[] items= new String[] {"Select User Mode","Seller","Buyer"};
+
+        userTypeSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,items));
+
+    }
 
 }

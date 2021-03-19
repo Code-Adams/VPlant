@@ -7,4 +7,11 @@
     <string name="Counter_Hint">Counter Hint</string>
     <string name="Get_OTP">Get OTP</string>
     <string name="Verify_Number">Verify Number</string>
+    <string name="Welcome">Welcome!!</string>
+    <string name="Registration_Text">Please provide the necessary information below:</string>
+    <string name="First_Name">First Name</string>
+    <string name="Last_Name">Last Name</string>
+    <string name="Address">Address</string>
+    <string name="Submit">Submit</string>
+    <string name="Business_Name">Business Name</string>
 </resources>

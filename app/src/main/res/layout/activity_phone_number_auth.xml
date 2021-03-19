@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".phoneNumberAuthActivity">
 
 
@@ -13,6 +14,7 @@
         android:id="@+id/progressBar"
         android:visibility="invisible"
         android:layout_centerInParent="true"/>
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/appLogoPhoneNumberAct"
@@ -24,9 +26,41 @@
         android:layout_centerHorizontal="true"
         app:civ_border_color="#FF000000"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appLogoPhoneNumberAct"
+        android:id="@+id/spinnerLinearlayout"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="12.5dp"
+        android:layout_marginBottom="12.5dp"
+        android:orientation="vertical">
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/userTypeSpinner"
+            android:spinnerMode="dropdown"
+            android:visibility="visible"
+            android:background="@android:drawable/btn_dropdown"
+            android:backgroundTint="@color/white"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12.5dp"
+            android:layout_marginBottom="12.5dp"
+            />
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/black">
+
+        </com.google.android.material.textfield.MaterialAutoCompleteTextView>
+
+
+    </LinearLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerLinearlayout"
         android:visibility="visible"
         android:id="@+id/phoneNumberFieldLayout"
         android:padding="30dp"
@@ -149,7 +183,6 @@
         android:text="@string/Verify_Number"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
-
 
 
 
