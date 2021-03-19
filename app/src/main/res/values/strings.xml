@@ -14,4 +14,9 @@
     <string name="Address">Address</string>
     <string name="Submit">Submit</string>
     <string name="Business_Name">Business Name</string>
+
+    //drawer....
+    <string name="navigation_drawer_open">Open Navigation Drawer </string>
+    <string name="navigation_drawer_close">Close Navigation Drawer </string>
+
 </resources>
