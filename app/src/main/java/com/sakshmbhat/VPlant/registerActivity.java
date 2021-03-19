@@ -44,6 +44,7 @@ public class registerActivity extends AppCompatActivity {
         initialiseParameters();
         getDeviceLocation();
 
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
