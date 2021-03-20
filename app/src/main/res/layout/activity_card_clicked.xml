@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tempimg"
     tools:context=".CardClicked">
 
     <androidx.cardview.widget.CardView
         android:layout_centerHorizontal="true"
-        android:layout_margin="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:elevation="800dp">
         <TextView
             android:layout_margin="7dp"

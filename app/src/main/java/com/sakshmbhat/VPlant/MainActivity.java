@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 chosenCategory = CategoryArray[which];
-                Toast.makeText(MainActivity.this, "Category Chosen :" + chosenCategory, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Category Chosen : " + chosenCategory, Toast.LENGTH_SHORT).show();
             }
         });
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     private void showTypeDialog() {
         final String TypeArray[] = {"Air purifier", "Health", "Low maintainance"};
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Choose a Category");
+        builder.setTitle("Choose a Type");
         builder.setSingleChoiceItems(TypeArray, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
