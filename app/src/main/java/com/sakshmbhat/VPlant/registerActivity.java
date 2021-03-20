@@ -113,6 +113,7 @@ public class registerActivity extends AppCompatActivity {
                     rRef.child("Users").child(userType).child(phoneNumber).setValue(uSData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            createSellerInventory();
                             Toast.makeText(registerActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(registerActivity.this, MainActivity.class);
                             startActivity(i);
@@ -136,6 +137,13 @@ public class registerActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    private void createSellerInventory() {
+
+        sellerInventory si=new sellerInventory("0","0","0","0","0","0","0","0","0","0","0","0");
+        rRef.child("Users").child("Seller").child(getIntent().getStringExtra("phoneNumber")).child("Inventory").setValue(si);
 
     }
 
