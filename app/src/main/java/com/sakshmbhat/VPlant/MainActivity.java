@@ -1,32 +1,81 @@
 package com.sakshmbhat.VPlant;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import android.os.Bundle;
-//
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
-//
 
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
     Button addplant;
     String chosenCategory="";
     String ChosenType="";
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle toggle;
+    Toolbar toolbar;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawerLayout=findViewById(R.id.drawer);
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView=findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id=item.getItemId();
+                switch (id){
+                    case R.id.plants:
+                      Fragment   fragment=new PlantCatalog();
+                        loadFragment(fragment);
+                    break;
+                    case R.id.maintain:
+                          fragment=new Maintanance();
+                        loadFragment(fragment);
+                        break;
+                    case R.id.tips:
+                         fragment=new tipsInfo();
+                        loadFragment(fragment);
+                        break;
+                    case R.id.devs:
+                          fragment=new Developers();
+                        loadFragment(fragment);
+                        break;
+                    default:
+                        return true;
+
+                }
+                    return true;
+            }
+        });
+
+
         addplant=findViewById(R.id.clicked);
         addplant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+private void loadFragment(Fragment fragment){
+    FragmentManager fragmentManager=getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.frame,fragment).commit();
+    drawerLayout.closeDrawer(GravityCompat.START);
+    fragmentTransaction.addToBackStack(null);
+
+}
+
     private void showCategoryDialog() {
         final String CategoryArray[]={"Balcony","Terrace","Indoor","Lawns"};
         AlertDialog.Builder builder =new AlertDialog.Builder(MainActivity.this);
