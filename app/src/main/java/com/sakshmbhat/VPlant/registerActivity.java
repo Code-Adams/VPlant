@@ -60,8 +60,14 @@ public class registerActivity extends AppCompatActivity {
                     Toast.makeText(registerActivity.this, "All Fields are must!!", Toast.LENGTH_SHORT).show();
                     address.setError("First Name Required!");
                     address.requestFocus();
-                }else{
+                }else if(getIntent().getStringExtra("userType").equals("Seller") && buisnessName.getText().toString().isEmpty()){
 
+                    Toast.makeText(registerActivity.this, "All Fields are must!!", Toast.LENGTH_SHORT).show();
+                    buisnessName.setError("Business Name Required!");
+                    buisnessName.requestFocus();
+
+
+                }else{
                     saveInfo();
                 }
             }
@@ -72,14 +78,14 @@ public class registerActivity extends AppCompatActivity {
 
         String phoneNumber=getIntent().getStringExtra("phoneNumber");
         String userType=getIntent().getStringExtra("userType");
-
+        // Toast.makeText(this, PLat+"op "+PLon, Toast.LENGTH_LONG).show();
         if(userType.equals("Buyer")) {
             uBuyerData uBData = new uBuyerData(fName.getText().toString().trim(), lName.getText().toString().trim(), address.getText().toString().trim(), userType, PLat, PLon,phoneNumber);
 
             rRef.child("Users").child("All Users").child(phoneNumber).setValue(uBData).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    rRef.child("Users").child(userType).child(phoneNumber).setValue(uBData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    rRef.child("Users").child(userType).child(phoneNumber).child("uInformation").setValue(uBData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(registerActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
@@ -110,7 +116,7 @@ public class registerActivity extends AppCompatActivity {
             rRef.child("Users").child("All Users").child(phoneNumber).setValue(uSData).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    rRef.child("Users").child(userType).child(phoneNumber).setValue(uSData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    rRef.child("Users").child(userType).child(phoneNumber).child("uInformation").setValue(uSData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             createSellerInventory();
@@ -178,32 +184,33 @@ public class registerActivity extends AppCompatActivity {
 //            }
 //        }
 
-      if(ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+        while (ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
+        {
 
-          ActivityCompat.requestPermissions(registerActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
+            ActivityCompat.requestPermissions(registerActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
 
-      }
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, new LocationListener() {
-          @Override
-          public void onLocationChanged(@NonNull Location location) {
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
 
-              setLonLat(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
+                setLonLat(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
 
 
-          }
-          @Override
-          public void onStatusChanged(String s, int i,Bundle bundle) {
+            }
+            @Override
+            public void onStatusChanged(String s, int i,Bundle bundle) {
 
-          }
-          @Override
-          public void onProviderEnabled(@NonNull String s) {
+            }
+            @Override
+            public void onProviderEnabled(@NonNull String s) {
 
-          }
-          @Override
-          public void onProviderDisabled(@NonNull String s) {
+            }
+            @Override
+            public void onProviderDisabled(@NonNull String s) {
 
-          }
-      });
+            }
+        });
 
     }
 

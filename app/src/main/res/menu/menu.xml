@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item
+        android:title="Plants"
+        android:id="@+id/plants"
+        android:icon="@drawable/plants"/>
+    <item
+        android:title="Tips  Info"
+        android:id="@+id/tips"
+        android:icon="@drawable/tips_info"/>
+    <item
+        android:title="Maintainance"
+        android:id="@+id/maintain"
+        android:icon="@drawable/mainatinance"/>
+    <item
+        android:title="Developers"
+        android:id="@+id/devs"
+        android:icon="@drawable/developer"/>
+</group>
+</menu>
