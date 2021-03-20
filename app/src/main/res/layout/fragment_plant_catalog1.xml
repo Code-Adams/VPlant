@@ -3,14 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PlantCatalog">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="78dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Plant Catalog"
-        android:textAlignment="center"
-        android:layout_marginTop="300dp"/>
+        android:id="@+id/showplants"
+        android:paddingTop="20dp"
+        android:layout_margin="3dp"
+        />
 
 </FrameLayout>

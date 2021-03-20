@@ -30,16 +30,17 @@
         app:itemHorizontalPadding="30dp"
         />
 
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/clicked"
         app:icon="@drawable/ic_add_sign"
         android:text="@string/Get_Plants"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="100dp"
         android:layout_marginEnd="20dp"/>
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
