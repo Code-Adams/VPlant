@@ -1,22 +1,11 @@
 package com.sakshmbhat.VPlant;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +15,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,22 +27,13 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ExtendedFloatingActionButton addplant;//SAKSHM BHAT
-    private String phoneNumber, userType;
+    private ExtendedFloatingActionButton EFOAB;//SAKSHM BHAT
+    private String phoneNumber,userType;
     private TextView textViewHeading;
     private ScrollView scrollView;
     private DatabaseReference rRef;
-    private MaterialButton updateBtn, refreshBtn;
-    private TextInputEditText AloeveraCount, ArtichokeCount, BokChoyCount, BostonFernCount, CauliflowerCount, ChamomileCount, ChivesCount, EnglishIvyCount, GarlicCount, LettuceCount, OnionsCount, SunflowerCount;
-
-
-
-    String chosenCategory = "";
-    String ChosenType = "";
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle toggle;
-    Toolbar toolbar;
-    NavigationView navigationView;
+    private MaterialButton updateBtn,refreshBtn;
+    private TextInputEditText AloeveraCount,ArtichokeCount,BokChoyCount,BostonFernCount,CauliflowerCount,ChamomileCount,ChivesCount,EnglishIvyCount,GarlicCount,LettuceCount,OnionsCount,SunflowerCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,110 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 refreshInventory();
             }
         });
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.plants:
-                        Fragment fragment = new PlantCatalog();
-                        loadFragment(fragment);
-                        break;
-                    case R.id.maintain:
-                        fragment = new Maintanance();
-                        loadFragment(fragment);
-                        break;
-                    case R.id.tips:
-                        fragment = new tipsInfo();
-                        loadFragment(fragment);
-                        break;
-                    case R.id.devs:
-                        fragment = new Developers();
-                        loadFragment(fragment);
-                        break;
-                    default:
-                        return true;
-
-                }
-                return true;
-            }
-        });
-        addplant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCategoryDialog();
-            }
-        });
-
 
         Toast.makeText(this, phoneNumber, Toast.LENGTH_SHORT).show();
     }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame, fragment).commit();
-        drawerLayout.closeDrawer(GravityCompat.START);
-        fragmentTransaction.addToBackStack(null);
-
-    }
-
-    private void showCategoryDialog() {
-        final String CategoryArray[] = {"Balcony", "Terrace", "Indoor", "Lawns"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Choose a Category");
-        builder.setSingleChoiceItems(CategoryArray, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                chosenCategory = CategoryArray[which];
-                Toast.makeText(MainActivity.this, "Category Chosen :" + chosenCategory, Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                showTypeDialog();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.create().show();
-    }
-
-    private void showTypeDialog() {
-        final String TypeArray[] = {"Air purifier", "Health", "Low maintainance"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Choose a Category");
-        builder.setSingleChoiceItems(TypeArray, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ChosenType = TypeArray[which];
-                Toast.makeText(MainActivity.this, "Category Type :" + ChosenType, Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(MainActivity.this, AddButtonClicked.class);
-                intent.putExtra("Category", chosenCategory);
-                intent.putExtra("Type", ChosenType);
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.create().show();
-    }
-
-
 
     private void updateInventory() {
 
@@ -207,9 +85,8 @@ public class MainActivity extends AppCompatActivity {
             textViewHeading.setText("You can see your current stock details below.\nYou can also update it.");
 
             refreshInventory();
-        }
-        else {
-            addplant.setVisibility(View.VISIBLE);
+
+
 
         }
 
@@ -287,38 +164,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeParameter() {
 
-        //EFOAB=findViewById(R.id.efoab);//SAKSHM BHAT
-        phoneNumber= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();//SAKSHM BHAT
+//        EFOAB=findViewById(R.id.efoab);//SAKSHM BHAT
+                  phoneNumber= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();//SAKSHM BHAT
         rRef= FirebaseDatabase.getInstance().getReference();
-        scrollView=findViewById(R.id.inventoryScroll);
+                 scrollView=findViewById(R.id.inventoryScroll);
         textViewHeading=findViewById(R.id.mainActivityHeading);
-        updateBtn=findViewById(R.id.updateSellerInventoryBtn);
+                 updateBtn=findViewById(R.id.updateSellerInventoryBtn);
         refreshBtn=findViewById(R.id.refreshSellerInventoryBtn);
-        AloeveraCount=findViewById(R.id.aloveraCount);
+                 AloeveraCount=findViewById(R.id.aloveraCount);
         ArtichokeCount=findViewById(R.id.artichokeCount);
-        BokChoyCount=findViewById(R.id.bokChoyCount);
+                BokChoyCount=findViewById(R.id.bokChoyCount);
         BostonFernCount=findViewById(R.id.bostonFernCount);
-        CauliflowerCount=findViewById(R.id.cauliflowerCount);
+                CauliflowerCount=findViewById(R.id.cauliflowerCount);
         ChamomileCount=findViewById(R.id.chamomileCount);
-        ChivesCount=findViewById(R.id.chivesCount);
+                ChivesCount=findViewById(R.id.chivesCount);
         EnglishIvyCount=findViewById(R.id.englishIvyCount);
-        GarlicCount=findViewById(R.id.garlicCount);
+                GarlicCount=findViewById(R.id.garlicCount);
         LettuceCount=findViewById(R.id.lettuceCount);
-        OnionsCount=findViewById(R.id.onionCount);
+                 OnionsCount=findViewById(R.id.onionCount);
         SunflowerCount=findViewById(R.id.sunflowerCount);
-
-
-
-        drawerLayout=findViewById(R.id.drawer);
-        toolbar=findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView=findViewById(R.id.nav_view);
-        addplant=findViewById(R.id.clicked);
-
-
 
     }
 }
