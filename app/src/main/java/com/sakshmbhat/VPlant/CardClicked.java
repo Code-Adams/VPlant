@@ -14,6 +14,7 @@ public class CardClicked extends AppCompatActivity {
         setContentView(R.layout.activity_card_clicked);
         mtext=findViewById(R.id.desiredDetail);
         Intent Iten=getIntent();
-        mtext.setText(Iten.getStringExtra("Data"));
+        String temp=Iten.getStringExtra("Data");
+        mtext.setText(temp);
     }
 }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".CardClicked"></activity>
+        <activity android:name=".ContactingSeller"></activity>
+        <activity android:name=".CardClicked" />
         <activity android:name=".registerActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AddButtonClicked" />

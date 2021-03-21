@@ -323,6 +323,11 @@
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
-
+        <Button
+            android:id="@+id/buy"
+            android:text="Buy This Plant"
+            android:layout_margin="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

@@ -310,7 +310,7 @@ public class phoneNumberAuthActivity extends AppCompatActivity {
         public void onVerificationFailed(@NonNull FirebaseException e) {
 
             getOtpClicked = false;
-            getOTP.setTextColor(Color.parseColor("00000FF"));
+            getOTP.setTextColor(Color.parseColor("0000000"));
             Toast.makeText(phoneNumberAuthActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
 
         }
