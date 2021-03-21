@@ -78,7 +78,7 @@ public class registerActivity extends AppCompatActivity {
 
         String phoneNumber=getIntent().getStringExtra("phoneNumber");
         String userType=getIntent().getStringExtra("userType");
-        // Toast.makeText(this, PLat+"op "+PLon, Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, PLat+"op "+PLon, Toast.LENGTH_LONG).show();
         if(userType.equals("Buyer")) {
             uBuyerData uBData = new uBuyerData(fName.getText().toString().trim(), lName.getText().toString().trim(), address.getText().toString().trim(), userType, PLat, PLon,phoneNumber);
 
@@ -184,33 +184,32 @@ public class registerActivity extends AppCompatActivity {
 //            }
 //        }
 
-        while (ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
-        {
+      if(ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(registerActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
 
-            ActivityCompat.requestPermissions(registerActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
+          ActivityCompat.requestPermissions(registerActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
 
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
+      }
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, new LocationListener() {
+          @Override
+          public void onLocationChanged(@NonNull Location location) {
 
-                setLonLat(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
+              setLonLat(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
 
 
-            }
-            @Override
-            public void onStatusChanged(String s, int i,Bundle bundle) {
+          }
+          @Override
+          public void onStatusChanged(String s, int i,Bundle bundle) {
 
-            }
-            @Override
-            public void onProviderEnabled(@NonNull String s) {
+          }
+          @Override
+          public void onProviderEnabled(@NonNull String s) {
 
-            }
-            @Override
-            public void onProviderDisabled(@NonNull String s) {
+          }
+          @Override
+          public void onProviderDisabled(@NonNull String s) {
 
-            }
-        });
+          }
+      });
 
     }
 
